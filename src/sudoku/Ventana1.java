@@ -17,12 +17,16 @@ import java.awt.Color;
 import java.awt.Choice;
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
+import javax.swing.border.EmptyBorder;
 
 
 public class Ventana1 {
 
 	private JFrame frmSudoku;
 
+	private MostradorTablero mostradorTablero;
+	private GestorTablero gestor;
+	private MostradorTablero mostrador;
 	/**
 	 * Launch the application.
 	 */
@@ -44,6 +48,11 @@ public class Ventana1 {
 	 */
 	public Ventana1() {
 		initialize();
+		iniciarObjetos();
+	}
+	
+	private void iniciarObjetos(){
+		
 	}
 
 	/**
@@ -52,7 +61,7 @@ public class Ventana1 {
 	private void initialize() {
 		frmSudoku = new JFrame();
 		frmSudoku.setTitle("Sudoku");
-		frmSudoku.setBounds(100, 100, 485, 299);
+		frmSudoku.setBounds(100, 100, 853, 568);
 		frmSudoku.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
@@ -72,12 +81,13 @@ public class Ventana1 {
 		frmSudoku.getContentPane().add(panel_1, gbc_panel_1);
 		panel_1.setLayout(new BorderLayout(0, 0));
 		
-		Canvas canvas = new Canvas();
-		canvas.setBackground(Color.WHITE);
-		canvas.setForeground(Color.WHITE);
-		panel_1.add(canvas);
+		mostradorTablero = new MostradorTablero(gestor);
+		mostradorTablero.setBackground(Color.WHITE);
+		mostradorTablero.setForeground(Color.BLACK);
+		panel_1.add(mostradorTablero);
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.insets = new Insets(5, 5, 5, 5);
 		gbc_panel.weightx = 1.0;
