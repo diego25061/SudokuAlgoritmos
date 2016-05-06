@@ -2,9 +2,9 @@ package sudoku.principales.elemento;
 
 import sudoku.GestorTablero;
 import sudoku.principales.Cuadro;
-import sudoku.principales.Elemento;
+import sudoku.principales.Celda;
 
-public class ElementoVariable extends Elemento {
+public class ElementoVariable extends Celda {
 
 	public ElementoVariable(int valor, TIPO tipo, Cuadro cuadro) {
 		super(valor, tipo, cuadro);

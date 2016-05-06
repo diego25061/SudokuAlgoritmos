@@ -1,23 +1,25 @@
 package sudoku;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.BoxLayout;
-import java.awt.Canvas;
-import java.awt.Panel;
-import javax.swing.JSplitPane;
-import java.awt.GridBagLayout;
-import javax.swing.JPanel;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Button;
-import java.awt.Color;
 import java.awt.Choice;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Panel;
+
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 
 
 public class Ventana1 {
@@ -26,7 +28,7 @@ public class Ventana1 {
 
 	private MostradorTablero mostradorTablero;
 	private GestorTablero gestor;
-	private MostradorTablero mostrador;
+
 	/**
 	 * Launch the application.
 	 */
@@ -47,12 +49,19 @@ public class Ventana1 {
 	 * Create the application.
 	 */
 	public Ventana1() {
+		preIniciarObjetos();
 		initialize();
-		iniciarObjetos();
+		postIniciarObjetos();
 	}
 	
-	private void iniciarObjetos(){
-		
+	private void preIniciarObjetos(){
+		 gestor = new GestorTablero();
+		 gestor.generarTableros();
+		 System.out.println("ASDASDASDADAD");
+	}
+	
+	private void postIniciarObjetos(){
+		//mostradorTablero.addMouseListener(new CallbackMouse());
 	}
 
 	/**
@@ -60,13 +69,14 @@ public class Ventana1 {
 	 */
 	private void initialize() {
 		frmSudoku = new JFrame();
-		frmSudoku.setTitle("Sudoku");
-		frmSudoku.setBounds(100, 100, 853, 568);
+		frmSudoku.setMinimumSize(new Dimension(560, 655));
+		frmSudoku.setTitle("Sudoku Samurai");
+		frmSudoku.setBounds(100, 100, 260, 219);
 		frmSudoku.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0};
+		gridBagLayout.columnWidths = new int[]{0};
 		gridBagLayout.rowHeights = new int[]{0, 0};
-		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.columnWeights = new double[]{1.0};
 		gridBagLayout.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		frmSudoku.getContentPane().setLayout(gridBagLayout);
 		
@@ -92,8 +102,8 @@ public class Ventana1 {
 		gbc_panel.insets = new Insets(5, 5, 5, 5);
 		gbc_panel.weightx = 1.0;
 		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 1;
-		gbc_panel.gridy = 0;
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 1;
 		frmSudoku.getContentPane().add(panel, gbc_panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -103,30 +113,34 @@ public class Ventana1 {
 		gbl_panel_2.columnWidths = new int[]{0, 0};
 		gbl_panel_2.rowHeights = new int[]{0, 0, 0};
 		gbl_panel_2.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		Panel panel_3 = new Panel();
-		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
-		gbc_panel_3.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_3.fill = GridBagConstraints.HORIZONTAL;
-		gbc_panel_3.gridx = 0;
-		gbc_panel_3.gridy = 0;
-		panel_2.add(panel_3, gbc_panel_3);
-		panel_3.setLayout(new BorderLayout(0, 0));
-		
-		Choice choice = new Choice();
-		panel_3.add(choice, BorderLayout.EAST);
-		
-		JLabel lblNewLabel = new JLabel("Dificultad");
-		panel_3.add(lblNewLabel, BorderLayout.WEST);
-		
-		Button button = new Button("Generar");
+		Button button = new Button("Resolver");
 		GridBagConstraints gbc_button = new GridBagConstraints();
-		gbc_button.fill = GridBagConstraints.HORIZONTAL;
+		gbc_button.insets = new Insets(0, 0, 5, 0);
+		gbc_button.fill = GridBagConstraints.BOTH;
 		gbc_button.gridx = 0;
-		gbc_button.gridy = 1;
+		gbc_button.gridy = 0;
 		panel_2.add(button, gbc_button);
+		button.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gestor.resolver();
+			}
+		});
+		
+		Button button_1 = new Button("Vaciar");
+		GridBagConstraints gbc_button_1 = new GridBagConstraints();
+		gbc_button_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_button_1.gridx = 0;
+		gbc_button_1.gridy = 1;
+		panel_2.add(button_1, gbc_button_1);
+		button_1.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				gestor.vaciar();
+			}
+		});
 	}
-
 }

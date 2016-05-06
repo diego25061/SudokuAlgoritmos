@@ -6,12 +6,12 @@ package sudoku.principales;
  * @author Diego
  *
  */
-public class Elemento {
+public class Celda {
 
 	int valor;
 	public enum TIPO {estatico, variable}
 	
-	TIPO tipoElemento;
+	public TIPO tipoCelda;
 	Estilo estilo;	
 	Cuadro cuadro;
 	
@@ -21,7 +21,11 @@ public class Elemento {
 			valor = (int)( Math.random() * 10);
 	}*/
 	
-	public Elemento(int valor, TIPO tipo, Cuadro cuadro){
+	public Celda(){
+		
+	}
+	
+	public Celda(int valor, TIPO tipo, Cuadro cuadro){
 		estilo = new Estilo();
 		this. valor = valor;
 	}
@@ -30,11 +34,19 @@ public class Elemento {
 		
 	}
 	
-	public int getvalor(){
+	public int getValor(){
 		return valor;
 	}
 	
-	public TIPO getTipoElemento(){
-		return tipoElemento;
+	public void setValor(int val){
+		valor = val;
+	}
+	
+	public void incrementar(){
+		valor++;
+		valor %= 10;
+	}
+	public TIPO getTipoCelda(){
+		return tipoCelda;
 	}
 }
